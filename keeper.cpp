@@ -38,16 +38,14 @@ void Keeper::Pop()
     try
     {
         if (size == 0) {
-            std::exception empty("Object is empty");
-            throw empty;
+            throw std::invalid_argument("Нулевое значение!");
         }
         int num;
         std::cout << "Chose which element to delete: ";
         std::cin >> num;
         if (num < 0 || num >= size)
         {
-            std::exception wrong("Wrong value");
-            throw wrong;
+            throw std::invalid_argument("Неверное значение!");
         }
 
         Train* temp = new Train[size - 1];
@@ -73,8 +71,7 @@ void Keeper::Show()
     {
         if (size == 0)
         {
-            std::exception empty("Object is empty");
-            throw empty;
+            throw std::invalid_argument("Нулевое значение!");
         }
         for (int i = 0; i < size; ++i)
             std::cout << object[i] << std::endl;
@@ -90,12 +87,10 @@ void Keeper::Edit(const int& change)
 {
     try {
         if (size == 0) {
-            std::exception empty("Object is empty");
-            throw empty;
+            throw std::invalid_argument("Нулевой размер!");
         }
         if (change < 0 || change >= size) {
-            std::exception wrong("Wrong value");
-            throw wrong;
+            throw std::invalid_argument("Неверный размер!");
         }
         std::cin >> object[change];
     }
@@ -104,27 +99,33 @@ void Keeper::Edit(const int& change)
     }
 }
 
-void Keeper::BestExperience(int exp)
+void Keeper::TrainInfo()
 {
     try
     {
         if (size == 0) {
-            std::exception empty("Object is empty");
-            throw empty;
+            
+            throw std::invalid_argument("Нулевое значение!");
         }
-        int this_year = 2023;
         bool flag = false;
+        std::string destination;
+        std::cout<<std::endl;
+        std::cout<<"Введите интересующий пункт назначения"<< std::endl;
+        std::getchar();
+        std::getline(std::cin, destination);
         for (int i = 0; i < size; i++)
         {
-            if (this_year - object[i].GetYearOfAdmission() > exp)
+            if (object[i].GetDestination() == destination)
             {
                 flag = true;
-                std::cout << object[i].GetFullName() << std::endl;
+                std::cout << "Номер поезда: " << object[i].GetTrainNumber() << '\n' << "Пункт назначения: " <<  object[i].GetDestination() << '\n' << "Время отправления: " << object[i].GetDepartureTime() << std::endl;
+                std::cout << std::endl;
             }
         }
         if (!flag)
         {
-            std::cout << "";
+            std::cout << "Нет доступных поездов"<< std::endl;
+            std::cout << std::endl;
         }
     }
     catch (std::exception& error)
@@ -139,9 +140,9 @@ void Keeper::Sort()
     {
         for (int j = 0; j < size - i- 1; ++j)
         {
-            if (object[j].GetFullName()>object[j + 1].GetFullName())
+            if (object[j].GetDepartureTime()>object[j + 1].GetDepartureTime())
             {
-                Worker temp = object[j];
+                Train temp = object[j];
                 object[j] = object[j + 1];
                 object[j + 1] = temp;
             }

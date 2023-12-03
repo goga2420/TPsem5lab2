@@ -1,17 +1,17 @@
 #include"train.hpp"
 
-Train::Train(std::string& full_name, std::string& post, int& year_of_admission)
+Train::Train(std::string& destination, int& train_number, int& departure_time)
 {
-    this->full_name_ = full_name;
-    this->post_ = post;
-    this->year_of_admission_ = year_of_admission;
+    this->destination = destination;
+    this->train_number = train_number;
+    this->departure_time = departure_time;
 }
 Train::Train()
 {
     std::cout << "";
-    full_name_ = "";
-    post_ = "";
-    year_of_admission_ = 0;
+    destination = "";
+    train_number = 0;
+    departure_time = 0;
 }
 
 Train::Train(Train& copy)
@@ -25,62 +25,51 @@ Train::~Train()
     std::cout << "";
 }
 
-std::string Train::GetFullName()
+std::string Train::GetDestination()
 {
-    return this->full_name_;
+    return this->destination;
 }
 
-int Train::GetYearOfAdmission()
+int Train::GetTrainNumber()
 {
-    return this->year_of_admission_;
+    return this->train_number;
+}
+
+int Train::GetDepartureTime()
+{
+    return this->departure_time;
 }
 
 Train& Train::operator=(Train& copy)
 {
-    this->full_name_ = copy.full_name_;
-    this->post_ = copy.post_;
-    this->year_of_admission_ = copy.year_of_admission_;
+    this->destination = copy.destination;
+    this->train_number = copy.train_number;
+    this->departure_time = copy.departure_time;
     return *this;
 }
 
 std::istream& operator>>(std::istream& in, Train& object)
 {
-    setlocale(LC_ALL, "russian");
     std::cout << "Enter the data\n";
-    std::cout << "‘»Œ: ";
+    std::cout << "Введите пункт назначения: ";
     getchar();
-    std::getline(std::cin, object.full_name_);
-    std::cout << "ƒÓÎÊÌÓÒÚ¸: ";
-    std::getline(std::cin, object.post_);
-    int check,this_year=2023;
-    while (1)
-    {
-        std::cout << "";
-
-        if (std::cin >> check)
-        {
-            if (check > 0&&check<=this_year)
-            {
-                object.year_of_admission_=check;
-                getchar();
-                break;
-            }
-        }
-        else
-        {
-            std::cout << "Incorrect value\n";
-            std::cin.clear();
-            std::cin.ignore(1024, '\n');
-        }
-    }
+    std::getline(std::cin, object.destination);
+    std::cout << "Введите номер поезда: ";
+    int number;
+    std::cin >> number;
+    object.train_number = number;
+    int departure;
+    std::cout << "Введите время отправления: ";
+    std::cin>> departure;
+    object.departure_time = departure;
+    
     return in;
 }
 
 std::ostream& operator<<(std::ostream& out, Train& object)
 {
-    setlocale(LC_ALL, "russian");
-    out << "‘»Œ: " << object.full_name_ << std::endl;
-    out << "ƒÓÎÊÌÓÒÚ¸: " << object.post_ << std::endl;
-    out << "√Ó‰ ÔÓÒÚÛÔÎÂÌËˇ Ì‡ ‡·ÓÚÛ: " << object.year_of_admission_ << std::endl;
+    out << "Пункт назначения: " << object.destination << std::endl;
+    out << "Номер поезда: " << object.train_number << std::endl;
+    out << "Время отправления: " << object.departure_time << std::endl;
     return out;
 }

@@ -5,15 +5,14 @@ class Keeper
 public:
     Keeper();
     ~Keeper();
-    Keeper(Worker* obj);
-    void Sort();//‘ÛÌÍˆËˇ ÒÓÚËÓ‚ÍË ÔÓ ‡ÎÙ‡‚ËÚÌÓÏÛ ÔÓˇ‰ÍÛ
-    void Push();//‰Ó·‡‚ÎÂÌËÂ Ó·˙ÂÍÚ‡
-    void Pop();//Û‰‡ÎÂÌËÂ Ó·˙ÂÍÚ‡
-    void Show();//‚˚‚Ó‰ Ì‡ ˝Í‡Ì
-    void Edit(const int& change);//Â‰‡ÍÚËÓ‚‡ÌËÂ Ó·˙ÂÍÚ‡
-    void BestExperience(int exp);
+    Keeper(Train* obj);
+    void Sort();//
+    void Push();//
+    void Pop();//
+    void Show();//
+    void Edit(const int& change);//
+    void TrainInfo();
 private:
     Train* object;
     int size;
 };
-
